@@ -8,6 +8,10 @@ So I made this (quickly - literally about 90 minutes), which reads the url, and 
 
 The code is pretty gnarly, but don't judge me - I wanted quick and dirty.
 
+## How to fork for 5 minutes
+
+Simply take a public github url and swap out the https://github.com for [http://5minfork.com](http://5minfork.com), wait a moment for the project to be cloned, and then you'll be redirected to a unique url which will serve up static content from the project.
+
 ## License
 
 MIT [http://rem.mit-license.org](http://rem.mit-license.org)
