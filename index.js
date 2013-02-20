@@ -7,7 +7,8 @@ var connect = require('connect'),
     crypto = require('crypto'),
     http = require('http'),
     forks = {},
-    timeout = 5 * 60 * 1000;
+    timeout = 5 * 60 * 1000,
+timeout = 20 * 1000;
 
 var app = connect().use(connect.logger('dev')).use(function subdomains(req, res, next){
   req.subdomains = req.headers.host
@@ -37,6 +38,7 @@ var app = connect().use(connect.logger('dev')).use(function subdomains(req, res,
             router: connect.static(path),
             accessed: Date.now(),
             clear: function () {
+              clearInterval(fork.timer);
               delete forks[hash].router;
               delete forks[hash];
               console.log('deleting path: ' + path);
