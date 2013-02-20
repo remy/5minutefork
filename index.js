@@ -29,12 +29,16 @@ var app = connect().use(connect.logger('dev')).use(function subdomains(req, res,
         // reset timeout on this path
         fork.accessed = Date.now();
 
+        if (!fork.router) {
+          fork.router = connect().use(connect.static(dir)).use(connect.directory(dir));
+        }
+
         return fork.router(req, res, next);
       } else {
         fmf.fork(fork.repo, function (path) {
           fork = forks[hash] = {
             repo: repo,
-            router: connect.static(path),
+            router: connect().use(connect.static(path)).use(connect.directory(path)),
             accessed: Date.now(),
             clear: function () {
               clearInterval(fork.timer);
@@ -66,7 +70,7 @@ var app = connect().use(connect.logger('dev')).use(function subdomains(req, res,
   if (url.length === 2) {
     var sha1 = crypto.createHash('sha1');
     sha1.update(url.join('.'));
-    var hash = sha1.digest('hex');
+    var hash = sha1.digest('hex').substr(0, 7);
     if (!forks[hash]) {
       forks[hash] = { repo: url };
     }
