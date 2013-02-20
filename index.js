@@ -16,43 +16,40 @@ var app = connect().use(connect.logger('dev')).use(function subdomains(req, res,
 
   next();
 }).use(function (req, res, next) {
-  // TODO sanitise
-  if (req.subdomains.length && forks[req.subdomains[0]]) {
-    var hash = req.subdomains[0];
-    var fork = forks[hash];
+  var hash = req.subdomains[0];
+  var fork = forks[hash];
+  if (fork) {
     var repo = fork.repo;
     var dir = './forks/' + repo + '/';
 
     fs.exists(dir, function (exists) {
-      if (exists && fork) {
+      if (exists) {
         // route static router through this directory
 
         // reset timeout on this path
-        clearTimeout(forks[hash].timer);
-        forks[hash].timer = setTimeout(function () {
-          forks[hash].clear();
-        }, timeout);
+        fork.accessed = Date.now();
 
-        return forks[hash].router(req, res, next);
+        return fork.router(req, res, next);
       } else {
         fmf.fork(fork.repo, function (path) {
-          forks[hash] = {
+          fork = forks[hash] = {
             repo: repo,
             router: connect.static(path),
+            accessed: Date.now(),
             clear: function () {
               delete forks[hash].router;
               delete forks[hash];
               console.log('deleting path: ' + path);
-              remove(path, function (err) {
-                console.log('deleted ' + path + ' (err? ' + err + ')');
-              });
+              remove(path);
             },
-            timer: setTimeout(function () {
-              forks[hash].clear();
-            }, timeout)
+            timer: setInterval(function () {
+              var now = Date.now();
+              if (now - fork.accessed > timeout) {
+                fork.clear();
+              }
+            }, 1000 * 10)
           };
-          
-          return forks[hash].router(req, res, next);
+          return fork.router(req, res, next);
         });
       }
     });
@@ -70,12 +67,13 @@ var app = connect().use(connect.logger('dev')).use(function subdomains(req, res,
     var sha1 = crypto.createHash('sha1');
     sha1.update(url.join('.'));
     var hash = sha1.digest('hex');
-    forks[hash] = {
-      repo: url
-    };
+    if (!forks[hash]) {
+      forks[hash] = { repo: url };
+    }
     res.writeHead(302, { 'location': 'http://' + hash + '.' + req.headers.host });
     res.end('Redirect to ' + 'http://' + hash + '.' + req.headers.host);
   } else {
+    res.writeHead(404, { 'content-type': 'text/html' });
     res.end('404');
   }
 });
