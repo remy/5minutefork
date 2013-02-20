@@ -10,4 +10,4 @@ The code is pretty gnarly, but don't judge me - I wanted quick and dirty.
 
 ## License
 
-MIT / [http://rem.mit-license.org](http://rem.mit-license.org)
+MIT [http://rem.mit-license.org](http://rem.mit-license.org)
