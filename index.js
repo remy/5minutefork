@@ -42,7 +42,7 @@ var app = connect().use(connect.logger('dev')).use(function subdomains(req, res,
               delete forks[hash].router;
               delete forks[hash];
               console.log('deleting path: ' + path);
-              remove(path);
+              remove(path, function () {});
             },
             timer: setInterval(function () {
               var now = Date.now();
