@@ -1,8 +1,10 @@
+"use strict";
 var connect = require('connect'),
     fs = require('fs'),
     remove = require('remove'),
     parse = require('url').parse,
     fmf = require('./lib/fmf'),
+    crypto = require('crypto'),
     http = require('http'),
     forks = {},
     timeout = 5 * 60 * 1000;
@@ -16,38 +18,44 @@ var app = connect().use(connect.logger('dev')).use(function subdomains(req, res,
 }).use(function (req, res, next) {
   // TODO sanitise
   if (req.subdomains.length) {
-    var dir = './forks/' + req.subdomains[0] + '/' + req.subdomains.slice(1).join('.') + '/';
+    var hash = req.subdomains[0];
+    var fork = forks[hash];
+    var repo = fork.repo;
+    var dir = './forks/' + repo + '/';
+
     fs.exists(dir, function (exists) {
-      if (exists && forks[dir]) {
+      if (exists && fork) {
         // route static router through this directory
 
         // reset timeout on this path
-        clearTimeout(forks[dir].timer);
-        forks[dir].timer = setTimeout(function () {
-          forks[dir].clear();
+        clearTimeout(forks[hash].timer);
+        forks[hash].timer = setTimeout(function () {
+          forks[hash].clear();
         }, timeout);
 
-        return forks[dir].router(req, res, next);
+        return forks[hash].router(req, res, next);
       } else {
-        fmf.fork(req.subdomains, function (path) {
-          forks[dir] = {
+        fmf.fork(fork.repo, function (path) {
+          forks[hash] = {
+            repo: repo,
             router: connect.static(path),
             clear: function () {
-              delete forks[dir].router;
-              delete forks[dir];
+              delete forks[hash].router;
+              delete forks[hash];
+              console.log('deleting path: ' + path);
               remove(path, function (err) {
-                // console.log('deleted ' + path + ' (err? ' + err + ')');
+                console.log('deleted ' + path + ' (err? ' + err + ')');
               });
             },
             timer: setTimeout(function () {
-              forks[dir].clear();
+              forks[hash].clear();
             }, timeout)
           };
           
-          return forks[dir].router(req, res, next);
+          return forks[hash].router(req, res, next);
         });
       }
-    });    
+    });
   } else {
     next();
   }
@@ -59,8 +67,14 @@ var app = connect().use(connect.logger('dev')).use(function subdomains(req, res,
   url.shift(); // remove leading slash
 
   if (url.length === 2) {
-    res.writeHead(302, { 'location': 'http://' + url.join('.') + '.' + req.headers.host });
-    res.end('Redirect to ' + 'http://' + url.join('.') + '.' + req.headers.host);
+    var sha1 = crypto.createHash('sha1');
+    sha1.update(url.join('.'));
+    var hash = sha1.digest('hex');
+    forks[hash] = {
+      repo: url
+    };
+    res.writeHead(302, { 'location': 'http://' + hash + '.' + req.headers.host });
+    res.end('Redirect to ' + 'http://' + hash + '.' + req.headers.host);
   } else {
     res.end('404');
   }
