@@ -17,7 +17,7 @@ var app = connect().use(connect.logger('dev')).use(function subdomains(req, res,
   next();
 }).use(function (req, res, next) {
   // TODO sanitise
-  if (req.subdomains.length && forks[req.subdomains[0]) {
+  if (req.subdomains.length && forks[req.subdomains[0]]) {
     var hash = req.subdomains[0];
     var fork = forks[hash];
     var repo = fork.repo;
