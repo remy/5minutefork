@@ -1,0 +1,16 @@
+{
+  "name": "5minfork",
+  "version": "0.0.1",
+  "description": "Quickly creates a fork of a github project for experimentation, and automatically removes after 5 minutes of inactivity",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "Remy Sharp",
+  "license": "MIT / http://rem.mit-license.org",
+  "dependencies": {
+    "connect": "~2.7.3",
+    "remove": "~0.1.5"
+  }
+}
