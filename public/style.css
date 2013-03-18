@@ -13,10 +13,10 @@ body {
   background: white;
   color: #212121;
   margin: 0;
-  padding-top: 60px;
+  padding: 60px 0;
 } 
 
-p, h1, h2 {
+p, h1, h2, blockquote {
   max-width: 80%;
   margin-left: auto;
   margin-right: auto;
@@ -55,4 +55,24 @@ em {
 
 .footer p {
   text-align: left;
+}
+
+blockquote {
+  quotes: "\201C""\201D""\2018""\2019";
+}
+
+blockquote p {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  padding: 20px;
+  padding-left: 20px;
+}
+
+blockquote p:before {
+  color:#ccc;
+  content:open-quote;
+  font-size:4em;
+  line-height:.1em;
+  margin-right:.25em;
+  vertical-align:-.4em;
 }
