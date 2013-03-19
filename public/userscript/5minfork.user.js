@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name       5 minute fork
 // @namespace  http://5minfork.com/
-// @version    1.0.1
-// @description  Adds a button to GitHub pages so with one click view the files of the repo web hosted by 5minfork.com
+// @version    1.0.5
+// @description  Adds a button to GitHub pages so with one click you can view the files of the repo hosted on the web by 5minfork.com
 // @include    http*://*github.com/*
 // ==/UserScript==
 
@@ -22,7 +22,7 @@ if(pageHeaderMatches && pageHeaderMatches.length)
 
 	var fiveMinForkButtonAnchor = document.createElement("a");
 	fiveMinForkButtonAnchor.className ="minibutton";
-	fiveMinForkButtonAnchor.href = document.location.href.replace("github.com", "5minfork.com").replace("https://", "http://");
+	fiveMinForkButtonAnchor.href = fiveMinForkURL;
 	fiveMinForkButtonAnchor.target = "_blank";
 	fiveMinForkButtonAnchor.appendChild(document.createTextNode("5 min fork"));
 
