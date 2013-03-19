@@ -1,0 +1,13 @@
+{
+	"name" : "5 minute fork",
+	"manifest_version" : 2,
+	"version" : "1.0.8",
+	"description" : "Adds a button to GitHub pages so with one click you can view the files of the repo hosted on the web by 5minfork.com",
+	"content_scripts":
+	[
+		{
+			"js" : [ "inpage.js" ],
+			"matches" : [ "http://*.github.com/*", "https://*.github.com/*" ]
+		}
+	]
+}
