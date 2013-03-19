@@ -9,6 +9,15 @@ code {
   color: #008DE2;
 }
 
+#spinner {
+  font-size: 33px; 
+  float: left; 
+  padding: 2px;
+  padding-right: 10px;
+  font-family: courier;
+  color: #008DE2;
+}
+
 body { 
   background: white;
   color: #212121;

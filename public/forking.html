@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8 />
+  <title>Forking (actually cloning) in action...</title>
+  <link rel="stylesheet" type="text/css" href="http://5minfork.com/style.css">
+</head>
+<body>
+  <h1><span id="spinner">⣾</span> <span>Loading your 5 minute fork</span></h1>
+  <p>Forking &mdash; <code>https://github.com/{{owner.login}}/{{name}}</code></p>
+  <p>This shouldn't take too long, we're just cloning the project which takes a series of seconds.</p>
+  <p>Once cloned, this url will automatically clean itself up and remove the files after 5 minutes of idle time.</p>
+  <script>
+  var spin = "⣾⣽⣻⢿⡿⣟⣯⣷",
+    title = document.getElementById('spinner'),
+    i=0;
+
+  setInterval(function() {
+      i = i==spin.length-1 ? 0 : ++i;
+      title.innerHTML = spin[i];
+  },200);
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', window.location);
+  xhr.setRequestHeader('x-requested-with', 'XMLHttpRequest');
+  xhr.onreadystatechange = function () {
+    if (this.readyState === 4 && this.status === 200) {
+      window.location.reload();
+    }
+  };
+  xhr.send(null);
+  
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1656750-31']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  </script>
+</body>
+</html>
