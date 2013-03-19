@@ -10,7 +10,7 @@ if(pageHeaderMatches && pageHeaderMatches.length)
 		cloneURL = document.location.href;
 
 	var reResult = new RegExp("^.*?github.com[/:]([^/]+)/(.*?)(.git)?$").exec(cloneURL);
-	var fiveMinForkURL = "http://5minfork.com/" + reResult[1] + "/" + reResult[2];
+	var fiveMinForkURL = "http://5minfork.com/" + reResult[1] + "/" + reResult[2].split('/')[0];
 
 	var pageHeader = pageHeaderMatches[0];
 
