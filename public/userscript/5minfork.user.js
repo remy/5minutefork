@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       5 minute fork
 // @namespace  http://5minfork.com/
-// @version    1.0.7
+// @version    1.0.8
 // @description  Adds a button to GitHub pages so with one click you can view the files of the repo hosted on the web by 5minfork.com
 // @match     http://*.github.com/*
 // @match     https://*.github.com/*
@@ -17,7 +17,7 @@ if(pageHeaderMatches && pageHeaderMatches.length)
 		cloneURL = document.location.href;
 
 	var reResult = new RegExp("^.*?github.com[/:]([^/]+)/(.*?)(.git)?$").exec(cloneURL);
-	var fiveMinForkURL = "http://5minfork.com/" + reResult[1] + "/" + reResult[2];
+	var fiveMinForkURL = "http://5minfork.com/" + reResult[1] + "/" + reResult[2].split('/')[0];
 
 	var pageHeader = pageHeaderMatches[0];
 
