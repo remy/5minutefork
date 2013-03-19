@@ -25,10 +25,22 @@ body {
   padding: 60px 0;
 } 
 
-p, h1, h2, blockquote {
+p, h1, h2, h3, blockquote, ul {
   max-width: 80%;
   margin-left: auto;
   margin-right: auto;
+}
+
+li {
+  margin: 10px 0;
+}
+
+h3 {
+  font-weight: normal;
+}
+
+img {
+  border: 3px solid #aaa;
 }
 
 h1 {
@@ -40,7 +52,7 @@ h2 {
   margin-top: 48px;
 }
 
-p {
+p, li {
   line-height: 24px;
   font-size: 18px;
   text-align: justify;
@@ -84,4 +96,8 @@ blockquote p:before {
   line-height:.1em;
   margin-right:.25em;
   vertical-align:-.4em;
+}
+
+body {
+  background: url(/images/logo.png) no-repeat -77px 40px fixed;
 }
