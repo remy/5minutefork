@@ -25,7 +25,7 @@
   <ul>
     <li><a href="/chrome-extension.zip">Chrome extension</a> &mdash; should be loaded in developer mode to import package</li>
     <li><a href="/userscript/5minfork.user.js">user.script</a> &mdash; compatible with Chrome &amp; Grease Monkey</li>
-    <li><a href="javascript:(function(){var l=window.location;l.host==='github.com'&&l='http://5minfork.com'+l.pathname}())">5minfork Bookmarklet</a> &mdash; drag to you bookmark bar</li>
+    <li><a href="javascript:void(function(){var l=window.location;if(l.host=='github.com')window.location='http://5minfork.com'+l.pathname}())">5minfork Bookmarklet</a> &mdash; drag to you bookmark bar</li>
   </ul>
   
   <h2 id="fork_this">Fork this?</h2>
