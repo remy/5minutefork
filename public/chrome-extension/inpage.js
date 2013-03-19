@@ -16,7 +16,7 @@ if(pageHeaderMatches && pageHeaderMatches.length)
 
 	var fiveMinForkButtonAnchor = document.createElement("a");
 	fiveMinForkButtonAnchor.className ="minibutton";
-	fiveMinForkButtonAnchor.href = document.location.href.replace("github.com", "5minfork.com").replace("https://", "http://");
+	fiveMinForkButtonAnchor.href = fiveMinForkURL;
 	fiveMinForkButtonAnchor.target = "_blank";
 	fiveMinForkButtonAnchor.appendChild(document.createTextNode("5 min fork"));
 
