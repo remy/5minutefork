@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       5 minute fork
 // @namespace  http://5minfork.com/
-// @version    1.0.6
+// @version    1.0.7
 // @description  Adds a button to GitHub pages so with one click you can view the files of the repo hosted on the web by 5minfork.com
 // @match     http://*.github.com/*
 // @match     https://*.github.com/*
@@ -25,6 +25,14 @@ if(pageHeaderMatches && pageHeaderMatches.length)
 	fiveMinForkButtonAnchor.className ="minibutton";
 	fiveMinForkButtonAnchor.href = fiveMinForkURL;
 	fiveMinForkButtonAnchor.target = "_blank";
+
+	var fiveMinForkButtonIcon = document.createElement("span");
+	fiveMinForkButtonIcon.className = "mini-icon";
+	fiveMinForkButtonIcon.style.backgroundImage = "url(https://assets.github.com/images/icons/emoji/clock5.png)";
+	fiveMinForkButtonIcon.style.backgroundSize = "16px";
+	fiveMinForkButtonIcon.style.backgroundRepeat = "no-repeat";
+
+	fiveMinForkButtonAnchor.appendChild(fiveMinForkButtonIcon);
 	fiveMinForkButtonAnchor.appendChild(document.createTextNode("5 min fork"));
 
 	var fiveMinForkButtonListItem = document.createElement("li");

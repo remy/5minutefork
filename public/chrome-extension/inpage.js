@@ -18,6 +18,14 @@ if(pageHeaderMatches && pageHeaderMatches.length)
 	fiveMinForkButtonAnchor.className ="minibutton";
 	fiveMinForkButtonAnchor.href = fiveMinForkURL;
 	fiveMinForkButtonAnchor.target = "_blank";
+
+	var fiveMinForkButtonIcon = document.createElement("span");
+	fiveMinForkButtonIcon.className = "mini-icon";
+	fiveMinForkButtonIcon.style.backgroundImage = "url(https://assets.github.com/images/icons/emoji/clock5.png)";
+	fiveMinForkButtonIcon.style.backgroundSize = "16px";
+	fiveMinForkButtonIcon.style.backgroundRepeat = "no-repeat";
+
+	fiveMinForkButtonAnchor.appendChild(fiveMinForkButtonIcon);
 	fiveMinForkButtonAnchor.appendChild(document.createTextNode("5 min fork"));
 
 	var fiveMinForkButtonListItem = document.createElement("li");
