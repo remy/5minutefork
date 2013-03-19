@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name       5 minute fork
 // @namespace  http://5minfork.com/
-// @version    1.0.5
+// @version    1.0.6
 // @description  Adds a button to GitHub pages so with one click you can view the files of the repo hosted on the web by 5minfork.com
-// @include    http*://*github.com/*
+// @match     http://*.github.com/*
+// @match     https://*.github.com/*
 // ==/UserScript==
 
 var pageHeaderMatches = document.querySelectorAll(".pagehead-actions");
