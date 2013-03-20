@@ -14,6 +14,17 @@ var connect = require('connect'),
     error = fs.readFileSync(__dirname + '/public/error.html', 'utf8'),
     timeout = 5 * 60 * 1000;
 
+function createRoute(dir) {
+  return connect()
+    .use(connect.static(dir))
+    .use(connect.directory(dir))
+    .use(function (req, res, next) {
+      // if we hit this point, then we have a 404
+      res.writeHead(404, { 'content-type': 'text/html' });
+      res.end(error);
+    });
+}
+
 var app = connect().use(connect.logger('dev')).use(connect.favicon(__dirname + '/public/favicon.ico')).use(function subdomains(req, res, next) {
   req.subdomains = req.headers.host
     .split('.')
@@ -26,6 +37,7 @@ var app = connect().use(connect.logger('dev')).use(connect.favicon(__dirname + '
 }).use(function (req, res, next) {
   var hash = req.subdomains[0];
   var fork = forks[hash];
+
   if (fork) {
     var url = fork.url;
     var dir = './forks/' + url.join('/') + '/';
@@ -38,7 +50,7 @@ var app = connect().use(connect.logger('dev')).use(connect.favicon(__dirname + '
           fork.accessed = Date.now();
 
           if (!fork.router) {
-            fork.router = connect().use(connect.static(dir)).use(connect.directory(dir));
+            fork.router = createRoute(dir);
           }
 
           return fork.router(req, res, next);
@@ -62,19 +74,19 @@ var app = connect().use(connect.logger('dev')).use(connect.favicon(__dirname + '
       } else {
         // render a holding page, and place xhr request
         if (req.xhr) {
-          fmf.fork(fork, function (err, path) {
+          fmf.fork(fork, function (err, dir) {
             fork = forks[hash] = {
               error: err,
               repo: fork.repo,
               url: fork.url,
               gitdata: fork.gitdata,
-              router: connect().use(connect.static(path)).use(connect.directory(path)),
+              router: createRoute(dir),
               accessed: Date.now(),
               clear: function () {
                 clearInterval(fork.timer);
                 delete forks[hash];
-                console.log('deleting path: ' + path);
-                remove(path, function () {});
+                console.log('deleting path: ' + dir);
+                remove(dir, function () {});
               },
               timer: setInterval(function () {
                 var now = Date.now();
@@ -91,7 +103,6 @@ var app = connect().use(connect.logger('dev')).use(connect.favicon(__dirname + '
             'auth': credentials
           }, function (e, r, body) {
             fork.gitdata = JSON.parse(body);
-            // console.log(fork.gitdata);
             fork.repo = fork.gitdata.git_url;
             res.writeHead(200, { 'content-type': 'text/html' });
             res.end(template(fork.gitdata));
@@ -104,6 +115,10 @@ var app = connect().use(connect.logger('dev')).use(connect.favicon(__dirname + '
   }
 }).use(connect.static('./public'))
 .use(function (req, res, next) {
+  if (req.subdomain) {
+    return next();
+  }
+
   // means no subdomain, and no real file found,
   // and ignore the leading slash, and only return
   // 2 parts

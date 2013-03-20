@@ -23,7 +23,7 @@ if (pageHeaderMatches && pageHeaderMatches.length) {
 
 	var fiveMinForkButtonIcon = document.createElement("span");
 	fiveMinForkButtonIcon.className = "mini-icon";
-	fiveMinForkButtonIcon.style.backgroundImage = "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAA20lEQVQYGXXBQSuDYQAA4GeKi5NE5CbNTrRSCoVQWotykpOUub4ncSESh5U4ShnlB3B0Ui5a0nKQloN2wN9g9n1Zsueh3rR9B8Y1dIGEcw1lHTk26x8dJlQFAfPWZdWZU5FTFQSDtrAtKbLkWUpNEHS7NOVSmx99PiTFgiDt0aR2kUN7fgUbStJq+q3xYlRsQd6ZU7EZ93xKihWQUBAbUqZoRmzMjl3DYhkPbLrSyLUcLcoy/pP1rtW3ERWr/lr0JiXS49aNZV1o1mlF0Z1edZpMyXvy5lXJiQGRL98/MTvJIbx7AAAAAElFTkSuQmCC)";
+	fiveMinForkButtonIcon.style.backgroundImage = "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAA9ElEQVQYGQXBPSiEYQAA4Ocok+vEnSgxKKJMko7CEaPdKpPFIJLVYJPdYrOeXRkomaToE4vyd537+2S5y93reQCAeU/erQMAAHBv0YCiTgAA6EBkWlpBFwBAm0PnWFFUs4VZV25kAfYFJf3Ii5DwatWSF2BUw48RkBehXSwloyQBx4JtQF6kz4WmNx82gUdBGiwoiZUVLevWC/DrGxCZ0qNsDAyalIKqGuBOzpCCJDgTZOFWMA5mPPu0ARJeNaVhT3AKAGBNcAkkFQQbAGBCRcscQE5Dy4kxkLErFhwAQM6XIKiq+BPU7QAAJO24Fqt7cGQY4B/0wlLnM/C+BgAAAABJRU5ErkJggg==)";
 	fiveMinForkButtonIcon.style.backgroundSize = "16px";
 	fiveMinForkButtonIcon.style.backgroundRepeat = "no-repeat";
 
