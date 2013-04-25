@@ -100,7 +100,8 @@ var app = connect().use(connect.logger('dev')).use(connect.favicon(__dirname + '
           });
         } else {
           request('https://api.github.com/repos/' + fork.url.join('/'), {
-            'auth': credentials
+            'auth': credentials,
+            'headers': { 'user-agent': '5minfork - http://5minfork.com' }
           }, function (e, r, body) {
             fork.gitdata = JSON.parse(body);
             fork.repo = fork.gitdata.git_url;
