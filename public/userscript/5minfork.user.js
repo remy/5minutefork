@@ -5,6 +5,7 @@
 // @description  Adds a button to GitHub pages so with one click you can view the files of the repo hosted on the web by 5minfork.com
 // @match     http://*.github.com/*
 // @match     https://*.github.com/*
+// @exclude     *://gist.github.com*
 // ==/UserScript==
 
 var pageHeaderMatches = document.querySelectorAll(".pagehead-actions");
