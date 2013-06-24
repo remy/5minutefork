@@ -124,7 +124,7 @@ var app = connect().use(connect.logger('dev')).use(connect.favicon(__dirname + '
   // and ignore the leading slash, and only return
   // 2 parts
   var url = req.url.replace(/\/$/, '').split('/').slice(1, 4);
-  var urlWithoutBranch = req.url.replace(/\/$/, '').split('/').slice(1, 4);
+  var urlWithoutBranch = req.url.replace(/\/$/, '').split('/').slice(1, 3);
 
   if (urlWithoutBranch.length === 2) {
     var sha1 = crypto.createHash('sha1');
