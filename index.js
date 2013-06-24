@@ -99,7 +99,7 @@ var app = connect().use(connect.logger('dev')).use(connect.favicon(__dirname + '
             res.end('true');
           });
         } else {
-          request('https://api.github.com/repos/' + fork.url.join('/'), {
+          request('https://api.github.com/repos/' + fork.urlWithoutBranch.join('/'), {
             'auth': credentials,
             'headers': { 'user-agent': '5minfork - http://5minfork.com' }
           }, function (e, r, body) {
@@ -123,14 +123,15 @@ var app = connect().use(connect.logger('dev')).use(connect.favicon(__dirname + '
   // means no subdomain, and no real file found,
   // and ignore the leading slash, and only return
   // 2 parts
-  var url = req.url.replace(/\/$/, '').split('/').slice(1, 3);
+  var url = req.url.replace(/\/$/, '').split('/').slice(1, 4);
+  var urlWithoutBranch = req.url.replace(/\/$/, '').split('/').slice(1, 3);
 
-  if (url.length === 2) {
+  if (urlWithoutBranch.length === 2) {
     var sha1 = crypto.createHash('sha1');
     sha1.update(url.join('.'));
     var hash = sha1.digest('hex').substr(0, 7);
     if (!forks[hash]) {
-      forks[hash] = { url: url };
+      forks[hash] = { url: url, urlWithoutBranch: urlWithoutBranch };
     }
     res.writeHead(302, { 'location': 'http://' + hash + '.' + req.headers.host });
     res.end('Redirect to ' + 'http://' + hash + '.' + req.headers.host);
