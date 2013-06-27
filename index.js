@@ -137,7 +137,7 @@ var app = connect().use(connect.logger('dev')).use(connect.favicon(__dirname + '
   if (urlWithoutBranch.length === 2) {
     var sha1 = crypto.createHash('sha1');
     sha1.update(url.join('.'));
-    var hash = '2e2236c' // sha1.digest('hex').substr(0, 7);
+    var hash = sha1.digest('hex').substr(0, 7);
     if (!forks[hash]) {
       forks[hash] = { url: url, urlWithoutBranch: urlWithoutBranch };
     }
