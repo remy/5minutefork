@@ -3,7 +3,7 @@ var connect = require('connect'),
     fs = require('fs'),
     remove = require('remove'),
     parse = require('url').parse,
-    fmf = require('./lib/fmf'),
+    fmf = require('./lib/fmf'), // FiveMinFork - fmf.js
     crypto = require('crypto'),
     request = require('request'),
     http = require('http'),
@@ -40,7 +40,7 @@ var app = connect().use(connect.logger('dev')).use(connect.favicon(__dirname + '
 
   if (fork) {
     var url = fork.url;
-    var dir = './forks/' + url.join('/') + '/';
+    var dir = fmf.getPath(url); //'./forks/' + url.join('/') + '/';
 
     fs.exists(dir, function (exists) {
       if (exists) {
@@ -78,7 +78,9 @@ var app = connect().use(connect.logger('dev')).use(connect.favicon(__dirname + '
             fork = forks[hash] = {
               error: err,
               repo: fork.repo,
+              // FIXME: for some reason I have to re-add these in :(
               url: fork.url,
+              urlWithoutBranch: fork.urlWithoutBranch,
               gitdata: fork.gitdata,
               router: createRoute(dir),
               accessed: Date.now(),
@@ -99,7 +101,7 @@ var app = connect().use(connect.logger('dev')).use(connect.favicon(__dirname + '
             res.end('true');
           });
         } else {
-          request('https://api.github.com/repos/' + fork.url.join('/'), {
+          request('https://api.github.com/repos/' + fork.urlWithoutBranch.join('/'), {
             'auth': credentials,
             'headers': { 'user-agent': '5minfork - http://5minfork.com' }
           }, function (e, r, body) {
@@ -123,14 +125,21 @@ var app = connect().use(connect.logger('dev')).use(connect.favicon(__dirname + '
   // means no subdomain, and no real file found,
   // and ignore the leading slash, and only return
   // 2 parts
-  var url = req.url.replace(/\/$/, '').split('/').slice(1, 3);
+  var split = req.url.replace(/\/$/, '').split('/'),
+      url = split.slice(1),
+      urlWithoutBranch = split.slice(1, 3);
 
   if (url.length === 2) {
+    url.push('tree');
+    url.push('master');
+  }
+
+  if (urlWithoutBranch.length === 2) {
     var sha1 = crypto.createHash('sha1');
     sha1.update(url.join('.'));
-    var hash = sha1.digest('hex').substr(0, 7);
+    var hash = '2e2236c' // sha1.digest('hex').substr(0, 7);
     if (!forks[hash]) {
-      forks[hash] = { url: url };
+      forks[hash] = { url: url, urlWithoutBranch: urlWithoutBranch };
     }
     res.writeHead(302, { 'location': 'http://' + hash + '.' + req.headers.host });
     res.end('Redirect to ' + 'http://' + hash + '.' + req.headers.host);
