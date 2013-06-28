@@ -12,7 +12,12 @@ var connect = require('connect'),
     forks = {},
     template = mustache.compile(fs.readFileSync(__dirname + '/public/forking.html', 'utf8')),
     error = fs.readFileSync(__dirname + '/public/error.html', 'utf8'),
-    timeout = 5 * 60 * 1000;
+    timeout = 5 * 60 * 1000,
+    debug = process.env.NODE_DEBUG || false;
+
+if (debug) {
+  console.log('>>> in debug mode');
+}
 
 function createRoute(dir) {
   return connect()
@@ -137,7 +142,7 @@ var app = connect().use(connect.logger('dev')).use(connect.favicon(__dirname + '
   if (urlWithoutBranch.length === 2) {
     var sha1 = crypto.createHash('sha1');
     sha1.update(url.join('.'));
-    var hash = sha1.digest('hex').substr(0, 7);
+    var hash = debug ? 'abc123' : sha1.digest('hex').substr(0, 7);
     if (!forks[hash]) {
       forks[hash] = { url: url, urlWithoutBranch: urlWithoutBranch };
     }
