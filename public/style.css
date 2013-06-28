@@ -1,4 +1,4 @@
-* { 
+* {
   font-family: 'helvetica neue', arial, helveica;
   font-weight: 200;
 }
@@ -10,20 +10,20 @@ code {
 }
 
 #spinner {
-  font-size: 33px; 
-  float: left; 
+  font-size: 33px;
+  float: left;
   padding: 2px;
   padding-right: 10px;
   font-family: courier;
   color: #008DE2;
 }
 
-body { 
+body {
   background: white;
   color: #212121;
   margin: 0;
   padding: 60px 0;
-} 
+}
 
 p, h1, h2, h3, blockquote, ul {
   max-width: 80%;
@@ -47,7 +47,7 @@ h1 {
   font-size: 38px;
 }
 
-h2 { 
+h2 {
   font-size: 28px;
   margin-top: 48px;
 }
@@ -100,4 +100,9 @@ blockquote p:before {
 
 body {
   background: url(/images/logo.png) no-repeat -77px 40px fixed;
+}
+
+.flattr img {
+  border: 0;
+  vertical-align: middle;
 }
