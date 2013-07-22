@@ -1,5 +1,7 @@
 # 5 minute fork
 
+[![Flattr this](http://api.flattr.com/button/flattr-badge-large.png)](http://flattr.com/thing/1463468/remy5minutefork-on-GitHub)
+
 Heard of 10 minute email? Well this is the same thing, except for github repos.
 
 The number of times I've come across a cool demo, only to be faced with a github repo and no live link - it just bums me out.
