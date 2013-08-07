@@ -25,7 +25,7 @@ body {
   padding: 60px 0;
 }
 
-p, h1, h2, h3, blockquote, ul {
+p, h1, h2, h3, blockquote, ul, form {
   max-width: 80%;
   margin-left: auto;
   margin-right: auto;
@@ -96,6 +96,30 @@ blockquote p:before {
   line-height:.1em;
   margin-right:.25em;
   vertical-align:-.4em;
+}
+
+form, form input, form button {
+  font-size: 28px;
+}
+
+form input {
+  width: 50%;
+  padding: 4px;
+}
+
+form button {
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 4px;
+}
+
+form input:focus:invalid, #error {
+  color: #900;
+}
+
+#error {
+  font-size: 18px;
+  margin-top: 18px;
 }
 
 body {
