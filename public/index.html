@@ -8,6 +8,12 @@
 </head>
 <body>
   <h1>5 minute fork</h1>
+  <form id="serveForm">
+    <label>Github url <input type="text" placeholder="github.com/user/repo" id="input" required pattern="(https?:\/\/)?(www\.)?github\.com\/.*" title="github.com/<user>/<repo> or
+github.com/<user>/<repo>/tree/<branch>"></label>
+    <button type="submit">Serve!</button>
+    <div id="error" style="display: none"></div>
+  </form>
   <p>As described on hackernews:</p>
   <blockquote><p>If a github repo has an index.html file and you click on it, github will show you the source instead of the webpage.<br><br>5minfork shows you the webpage so that you can have an idea of what the repo is about.</p></blockquote>
   <h2 id="why">Why?</h2>
@@ -34,6 +40,31 @@
   <h2 id="fork_this">Fork this?</h2>
   <p>If you're interested in the code, have found a bug, want to fix a bug, have written a browser extension (go on - you know you want to) - the code is <a href="http://rem.mit-license.org/">freely</a> available on github: <a href="https://github.com/remy/5minutefork">https://github.com/remy/5minutefork</a></p>
   <p>Enjoy &mdash; <a href="http://twitter.com/rem">@rem</a></p>
+  <script>
+    (function () {
+      var form = document.getElementById("serveForm");
+      var input = document.getElementById("input");
+      var error = document.getElementById("error");
+
+      var GITHUB_URL_RE = new RegExp(input.placeholder);
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var url = input.value;
+
+        // fallback for browsers that don't support the `pattern` attribute or
+        // showing an notification when validation fails
+        if (!GITHUB_URL_RE.test(url)) {
+          error.textContent = "URL must match either " + input.title;
+          error.style.display = "block";
+        } else {
+          // Remove the github url and use the pathname
+          location.pathname = url.replace(GITHUB_URL_RE, "");
+        }
+      }, false)
+    }());
+  </script>
+
 <script>
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-1656750-31']);
