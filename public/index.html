@@ -9,7 +9,7 @@
 <body>
   <h1>5 minute fork</h1>
   <form id="serveForm">
-    <label>Github url <input type="text" placeholder="github.com/user/repo" id="input" required pattern="(https?:\/\/)?(www\.)?github\.com\/.*" title="github.com/<user>/<repo> or
+    <label>Github url <input type="text" placeholder="github.com/user/repo" id="input" required pattern="(?:https?:\/\/)?(?:www\.)?github\.com\/(.*)" title="github.com/<user>/<repo> or
 github.com/<user>/<repo>/tree/<branch>"></label>
     <button type="submit">Serve!</button>
     <div id="error" style="display: none"></div>
@@ -46,7 +46,7 @@ github.com/<user>/<repo>/tree/<branch>"></label>
       var input = document.getElementById("input");
       var error = document.getElementById("error");
 
-      var GITHUB_URL_RE = new RegExp(input.placeholder);
+      var GITHUB_URL_RE = new RegExp(input.pattern);
 
       form.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -59,7 +59,7 @@ github.com/<user>/<repo>/tree/<branch>"></label>
           error.style.display = "block";
         } else {
           // Remove the github url and use the pathname
-          location.pathname = url.replace(GITHUB_URL_RE, "");
+          location.pathname = url.replace(GITHUB_URL_RE, "$1");
         }
       }, false)
     }());
