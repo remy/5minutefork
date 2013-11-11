@@ -6,6 +6,7 @@
 // @match     http://*.github.com/*
 // @match     https://*.github.com/*
 // @exclude     *://gist.github.com*
+// @exclude     *://github.com/organizations/*
 // ==/UserScript==
 
 var pageHeaderMatches = document.querySelectorAll(".pagehead-actions");
