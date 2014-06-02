@@ -1,14 +1,13 @@
-"use strict";
+'use strict';
 var connect = require('connect'),
     fs = require('fs'),
     remove = require('remove'),
-    parse = require('url').parse,
     fmf = require('./lib/fmf'), // FiveMinFork - fmf.js
     crypto = require('crypto'),
     request = require('request'),
     http = require('http'),
     mustache = require('mustache'),
-    credentials = require('./credentials.json'),
+    credentials = require('./lib/credentials'),
     forks = {},
     template = mustache.compile(fs.readFileSync(__dirname + '/public/forking.html', 'utf8')),
     error = fs.readFileSync(__dirname + '/public/error.html', 'utf8'),
@@ -23,7 +22,7 @@ function createRoute(dir) {
   return connect()
     .use(connect.static(dir))
     .use(connect.directory(dir))
-    .use(function (req, res, next) {
+    .use(function (req, res) {
       // if we hit this point, then we have a 404
       res.writeHead(404, { 'content-type': 'text/html' });
       res.end(error);
@@ -154,4 +153,4 @@ var app = connect().use(connect.logger('dev')).use(connect.favicon(__dirname + '
   }
 });
 
-var server = http.createServer(app).listen(process.env.PORT || 8000);
+http.createServer(app).listen(process.env.PORT || 8000);
