@@ -1,6 +1,6 @@
 {
   "name": "5minfork",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Quickly creates a fork of a github project for experimentation, and automatically removes after 5 minutes of inactivity",
   "main": "index.js",
   "scripts": {
