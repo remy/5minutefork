@@ -10,6 +10,25 @@ So I made this (quickly - literally about 90 minutes), which reads the url, and 
 
 The code is pretty gnarly, but don't judge me - I wanted quick and dirty.
 
+## Running
+
+The project requires github auth details to place API requests. Currently this is in the form of simple auth (which is a bit rubbish, and I'll take a PR to fix this!).
+
+To run:
+
+    NODE_USER=githubUsername NODE_PASS=githubPassword node index.js
+
+Alternatively, you can put these credentials in a JSON config file in the root called `credentials.json`:
+
+```json
+{
+  "user": "githubUsername",
+  "pass": "githubPassword"
+}
+```
+
+`.gitignore` should ensure the file isn't sent up to github.
+
 ## Development & debug mode
 
 Since 5minfork uses the format `http://<hash>.host.com/` as the cloned repo, testing locally can be challenging (unless you have a CNAME star rule - whic most people don't). So there is a debug mode that points all repos to **abc123** as the hash, and unpon restart the `forks` and `forks-loading` directories are completely reset.
