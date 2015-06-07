@@ -16,7 +16,7 @@ if (pageHeaderMatches) {
 	var reResult = new RegExp("^.*?github.com[/:]([^/]+)/(.*?)(.git)?$").exec(document.location.href);
 
 	var fiveMinForkButtonAnchor = document.createElement("a");
-	fiveMinForkButtonAnchor.className ="minibutton";
+	fiveMinForkButtonAnchor.className = "btn btn-sm";
 	fiveMinForkButtonAnchor.href = "http://5minfork.com/" + reResult[1] + "/" + reResult[2].split('/')[0];
 	fiveMinForkButtonAnchor.target = "_blank";
 
