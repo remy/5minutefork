@@ -1,6 +1,6 @@
 {
 	"name" : "5 minute fork",
-	"version" : "1.0.16",
+	"version" : "1.0.17",
 	"manifest_version" : 2,
 	"homepage_url": "http://5minfork.com",
 	"description" : "Adds a button to GitHub pages so with one click you can view the files of the repo hosted on the web by 5minfork.com",
