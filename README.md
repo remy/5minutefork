@@ -12,19 +12,17 @@ The code is pretty gnarly, but don't judge me - I wanted quick and dirty.
 
 ## Running
 
-The project requires github auth details to place API requests. Currently this is in the form of simple auth (which is a bit rubbish, and I'll take a PR to fix this!).
+The project requires a github OAuth token to place API requests. If you are not sure how to generate an OAuth token [Github have an article to help](https://help.github.com/articles/creating-an-access-token-for-command-line-use/)
 
 To run:
 
-    NODE_USER=githubUsername NODE_PASS=githubPassword node index.js
+    GITHUB_TOKEN=token node index.js
 
-Alternatively, you can put these credentials in a JSON config file in the root called `credentials.json`:
+Alternatively, you can put the token in a file in the root of this project called `.env`:
 
-```json
-{
-  "user": "githubUsername",
-  "pass": "githubPassword"
-}
+```BASH
+GITHUB_TOKEN=token
+NODE_DEBUG=true #Set to false for production
 ```
 
 `.gitignore` should ensure the file isn't sent up to github.
