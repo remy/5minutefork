@@ -14,6 +14,6 @@
     "dotenv": "^1.2.0",
     "mustache": "~0.7.2",
     "remove": "~0.1.5",
-    "request": "~2.16.6"
+    "request": "~2.82.0"
   }
 }
